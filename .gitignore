@@ -1,0 +1,13 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+.venv/
+venv/
+
+# Local backup
+myportfolio_backup/
+
+# Django environment secrets
+.env

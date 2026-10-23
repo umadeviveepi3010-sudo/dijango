@@ -1,0 +1,134 @@
+{% extends 'portfolioapp/base.html' %}
+{% load static %}
+
+{% block content %}
+<header class="hero">
+    <nav class="topbar">
+        <div class="brand"></div>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#work">Education</a>
+            <a href="#projects">Projects</a>
+            <a href="#certificates">Certificates</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+    <div class="hero-grid">
+        <div class="hero-content">
+            <p class="eyebrow">Web development and design</p>
+            <h1>Hi, I’m {{ name }}</h1>
+            <p class="hero-copy">{{ headline }}</p>
+            <p class="hero-bio">{{ short_summary }}</p>
+            <div class="hero-actions">
+                <a class="button primary" href="#projects">See my work 🚀</a>
+                <a class="button outline" href="#contact">Contact me <span class="button-emoji">✉️</span></a>
+                <a class="button outline" href="{% static resume_file %}" target="_blank" rel="noreferrer">Download resume <span class="button-emoji">📄</span></a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <img src="{% static 'portfolioapp/images/hero-illustration.svg' %}" alt="Web development illustration">
+        </div>
+    </div>
+</header>
+
+<section id="about" class="section light">
+    <div class="section-grid">
+        <div>
+            <h2>About</h2>
+            <p>{{ short_summary }}</p>
+            <div class="stats-row">
+                {% for item in stats %}
+                    <div class="stat-card">
+                        <span class="stat-value">{{ item.value }}</span>
+                        <span class="stat-label">{{ item.label }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="skills-card">
+            <h3>Core strengths</h3>
+            <ul>
+                {% for skill in skills %}
+                    <li>{{ skill }}</li>
+                {% endfor %}
+            </ul>
+            <div class="info-group">
+                <h4>Languages</h4>
+                <div class="language-list">
+                    {% for language in languages %}
+                        <span>{{ language }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="work" class="section dark">
+    <div class="section-header">
+        <h2>Education & training</h2>
+        <p>A strong academic foundation combined with real project experience and active learning.</p>
+    </div>
+    <div class="timeline">
+        {% for role in experience %}
+            <div class="timeline-item">
+                <span class="timeline-date">{{ role.period }}</span>
+                <h3>{{ role.role }}</h3>
+                <p class="timeline-company">{{ role.company }}</p>
+                <p>{{ role.description }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section id="projects" class="section light">
+    <div class="section-header">
+        <h2>Featured projects</h2>
+        <p>Work that demonstrates web development, data analytics, and machine learning skills.</p>
+    </div>
+    <div class="project-grid">
+        {% for project in projects %}
+            <article class="project-card">
+                <h3>{{ project.title }}</h3>
+                <p>{{ project.description }}</p>
+                <div class="tag-row">
+                    {% for tag in project.tags %}
+                        <span>{{ tag }}</span>
+                    {% endfor %}
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+</section>
+
+<section id="certificates" class="section dark">
+    <div class="section-header">
+        <h2>Certifications</h2>
+        <p>Validated learning from cloud, analytics, and product engineering programs.</p>
+    </div>
+    <div class="certificate-grid">
+        {% for certificate in certificates %}
+            <article class="certificate-card">
+                <h3>{{ certificate.title }}</h3>
+                <p>{{ certificate.description }}</p>
+                <span class="certificate-date">{{ certificate.date }}</span>
+                {% if certificate.file %}
+                    <a class="certificate-link" href="{% static certificate.file %}" target="_blank" rel="noreferrer">View certificate</a>
+                {% endif %}
+            </article>
+        {% endfor %}
+    </div>
+</section>
+
+<section id="contact" class="section contact-section dark">
+    <div>
+        <h2>Let’s connect</h2>
+        <p>If you are hiring a driven full-stack developer, I’d love to talk.</p>
+        <div class="contact-card">
+            {% for link in links %}
+                <a href="{{ link.url }}" target="_blank" rel="noreferrer">{{ link.label }}</a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
